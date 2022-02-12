@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "conga",
+    "conga-core",
+]
