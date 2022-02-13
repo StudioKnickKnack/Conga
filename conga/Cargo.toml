@@ -1,6 +1,6 @@
 [package]
 authors = ["Tobias Mollstam <tobias@mollstam.com>"]
-edition = "2018"
+edition = "2021"
 name = "conga"
 version = "0.1.0"
 
@@ -8,4 +8,5 @@ version = "0.1.0"
 
 [dependencies]
 conga-core = {path = "../conga-core"}
-iced = {version = "0.3", features = ["canvas", "tokio", "debug"]}
+iced = {git = "https://github.com/iced-rs/iced.git", features = ["canvas", "tokio", "debug"]}
+iced_lazy = {git = "https://github.com/iced-rs/iced.git"}
