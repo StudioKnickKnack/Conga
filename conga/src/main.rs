@@ -3,7 +3,7 @@ use iced::pane_grid::{self, PaneGrid};
 use iced::{Application, Command, Container, Element, Length, Row, Settings, Text};
 use iced_lazy::responsive::Responsive;
 
-use conga_core::Message;
+use conga_core as core;
 
 mod view;
 
@@ -14,17 +14,19 @@ pub fn main() -> iced::Result {
 }
 
 struct CongaApp {
-    state: view::state::State,
+    view_state: view::state::State,
+    state: core::state::State,
 }
 
 impl Application for CongaApp {
     type Executor = executor::Default;
-    type Message = conga_core::Message;
+    type Message = core::Message;
     type Flags = ();
-    fn new(_flags: ()) -> (Self, Command<Message>) {
+    fn new(_flags: ()) -> (Self, Command<Self::Message>) {
         (
             CongaApp {
-                state: view::state::State::new(),
+                view_state: view::state::State::new(),
+                state: core::state::State::new(),
             },
             Command::none(),
         )
@@ -32,11 +34,11 @@ impl Application for CongaApp {
     fn title(&self) -> String {
         String::from("Conga")
     }
-    fn update(&mut self, _message: Message) -> Command<Message> {
+    fn update(&mut self, _message: Self::Message) -> Command<Self::Message> {
         todo!()
     }
-    fn view(&mut self) -> Element<Message> {
-        let pane_grid = PaneGrid::new(&mut self.state.panes, |id, pane| {
+    fn view(&mut self) -> Element<Self::Message> {
+        let pane_grid = PaneGrid::new(&mut self.view_state.panes, |id, pane| {
             let view::pane::Pane {
                 responsive,
                 content,
