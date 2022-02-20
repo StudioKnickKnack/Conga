@@ -1,6 +1,7 @@
 use iced::canvas;
 use iced::pane_grid::{self};
 
+use super::content::{EmptyComponent, FooComponent};
 use super::pane::Pane;
 
 pub struct State {
@@ -12,8 +13,8 @@ pub struct State {
 
 impl State {
     pub fn new() -> State {
-        let config_left = pane_grid::Configuration::Pane(Pane::new(0));
-        let config_main = pane_grid::Configuration::Pane(Pane::new(Pane::EMPTY_ID));
+        let config_left = pane_grid::Configuration::Pane(Pane::new(0, Box::new(FooComponent {})));
+        let config_main = pane_grid::Configuration::Pane(Pane::new(1, Box::new(EmptyComponent {})));
         let config_root = pane_grid::Configuration::Split {
             axis: pane_grid::Axis::Vertical,
             ratio: 0.3,

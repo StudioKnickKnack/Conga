@@ -38,17 +38,17 @@ impl Application for CongaApp {
         todo!()
     }
     fn view(&mut self) -> Element<Self::Message> {
-        let pane_grid = PaneGrid::new(&mut self.view_state.panes, |id, pane| {
+        let pane_grid = PaneGrid::new(&mut self.view_state.panes, |pane, state| {
             let view::pane::Pane {
                 responsive,
                 content,
                 ..
-            } = pane;
+            } = state;
 
             if content.id == view::pane::Pane::EMPTY_ID {
                 // empty pane
                 pane_grid::Content::new(Responsive::new(responsive, move |size| {
-                    content.view(id, size)
+                    content.view(pane, size)
                 }))
                 .style(view::style::Pane::Normal)
             } else {
@@ -57,11 +57,11 @@ impl Application for CongaApp {
                         .spacing(5);
 
                 let title_bar = pane_grid::TitleBar::new(title)
-                    .controls(pane.controls.view(id))
+                    .controls(state.controls.view(pane))
                     .padding(10);
 
                 pane_grid::Content::new(Responsive::new(responsive, move |size| {
-                    content.view(id, size)
+                    content.view(pane, size)
                 }))
                 .title_bar(title_bar)
                 .style(view::style::Pane::Normal)

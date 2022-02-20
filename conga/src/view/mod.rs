@@ -1,4 +1,4 @@
-mod content;
+pub mod content;
 pub mod controls;
 pub mod pane;
 pub mod state;

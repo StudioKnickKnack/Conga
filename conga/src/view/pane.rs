@@ -1,6 +1,6 @@
 use iced_lazy::responsive;
 
-use super::content::Content;
+use super::content::{Component, Content};
 use super::controls::Controls;
 
 pub struct Pane {
@@ -10,10 +10,10 @@ pub struct Pane {
 }
 
 impl Pane {
-    pub fn new(id: usize) -> Self {
+    pub fn new(id: usize, root: Box<dyn Component>) -> Self {
         Self {
             responsive: responsive::State::new(),
-            content: Content::new(id, id == Pane::EMPTY_ID),
+            content: Content::new(id, root),
             controls: Controls::new(),
         }
     }
